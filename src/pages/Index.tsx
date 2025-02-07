@@ -5,12 +5,14 @@ import { Users, Plane, CreditCard, Heart, Mail } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
   const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) {
       toast({
@@ -19,11 +21,38 @@ const Index = () => {
       });
       return;
     }
-    toast({
-      title: "Thanks for joining!",
-      description: "We'll notify you when we launch.",
-    });
-    setEmail("");
+
+    setIsSubmitting(true);
+    try {
+      const { error } = await supabase
+        .from('waitlist')
+        .insert([{ email }]);
+
+      if (error) throw error;
+
+      toast({
+        title: "Thanks for joining!",
+        description: "We'll notify you when we launch.",
+      });
+      setEmail("");
+    } catch (error: any) {
+      if (error.code === '23505') {
+        toast({
+          title: "Already registered",
+          description: "This email is already on our waitlist.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Something went wrong. Please try again.",
+          variant: "destructive",
+        });
+      }
+      console.error('Error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const features = [
@@ -96,10 +125,15 @@ const Index = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="flex-1 bg-gray-800/50 border-gray-700"
+            disabled={isSubmitting}
           />
-          <Button type="submit" className="bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 text-white">
+          <Button 
+            type="submit" 
+            className="bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 text-white"
+            disabled={isSubmitting}
+          >
             <Mail className="mr-2 h-4 w-4" />
-            Join Waitlist
+            {isSubmitting ? 'Joining...' : 'Join Waitlist'}
           </Button>
         </motion.form>
       </motion.section>
