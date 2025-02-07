@@ -50,7 +50,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-pink-50">
+    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800">
       {/* Hero Section */}
       <motion.section 
         initial={{ opacity: 0, y: 20 }}
@@ -72,13 +72,13 @@ const Index = () => {
           />
         </motion.div>
 
-        <span className="inline-block px-3 py-1 mb-6 text-sm font-medium bg-gradient-to-r from-blue-500 to-pink-500 text-white rounded-full">
+        <span className="inline-block px-3 py-1 mb-6 text-sm font-medium bg-gradient-to-r from-blue-500/20 to-pink-500/20 text-white rounded-full border border-blue-500/30">
           Coming Soon
         </span>
-        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-pink-600">
+        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-400">
           Travel Together, Create Stories
         </h1>
-        <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
           Join a community of passionate travelers. Plan trips, split costs, and create unforgettable memories with friends and family.
         </p>
         
@@ -95,9 +95,9 @@ const Index = () => {
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="flex-1"
+            className="flex-1 bg-gray-800/50 border-gray-700"
           />
-          <Button type="submit" className="bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600">
+          <Button type="submit" className="bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 text-white">
             <Mail className="mr-2 h-4 w-4" />
             Join Waitlist
           </Button>
@@ -113,15 +113,15 @@ const Index = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1, duration: 0.8 }}
-              className="p-6 bg-white/80 backdrop-blur-sm rounded-xl shadow-sm hover:shadow-md transition-shadow border border-blue-50"
+              className="p-6 bg-gray-800/50 backdrop-blur-sm rounded-xl shadow-lg hover:shadow-xl transition-shadow border border-gray-700"
             >
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-pink-100 rounded-lg flex items-center justify-center mb-4">
-                <feature.icon className="h-6 w-6 text-blue-600" />
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-500/10 to-pink-500/10 rounded-lg flex items-center justify-center mb-4 border border-gray-700">
+                <feature.icon className="h-6 w-6 text-blue-400" />
               </div>
-              <h3 className="text-xl font-semibold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-pink-600">
+              <h3 className="text-xl font-semibold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-400">
                 {feature.title}
               </h3>
-              <p className="text-gray-600">{feature.description}</p>
+              <p className="text-gray-300">{feature.description}</p>
             </motion.div>
           ))}
         </div>
