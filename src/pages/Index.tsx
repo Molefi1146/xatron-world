@@ -50,18 +50,32 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-pink-50">
       {/* Hero Section */}
       <motion.section 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="container mx-auto px-4 pt-24 pb-16 text-center"
+        className="container mx-auto px-4 pt-12 pb-16 text-center"
       >
-        <span className="inline-block px-3 py-1 mb-6 text-sm font-medium bg-blue-50 text-blue-600 rounded-full">
+        {/* Logo */}
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="mb-8"
+        >
+          <img 
+            src="/lovable-uploads/42f1d055-a57c-41e8-bb0f-0369115a85f0.png" 
+            alt="Xatron World"
+            className="w-32 h-32 mx-auto"
+          />
+        </motion.div>
+
+        <span className="inline-block px-3 py-1 mb-6 text-sm font-medium bg-gradient-to-r from-blue-500 to-pink-500 text-white rounded-full">
           Coming Soon
         </span>
-        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600">
+        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-pink-600">
           Travel Together, Create Stories
         </h1>
         <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
@@ -83,7 +97,7 @@ const Index = () => {
             onChange={(e) => setEmail(e.target.value)}
             className="flex-1"
           />
-          <Button type="submit">
+          <Button type="submit" className="bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600">
             <Mail className="mr-2 h-4 w-4" />
             Join Waitlist
           </Button>
@@ -99,12 +113,14 @@ const Index = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1, duration: 0.8 }}
-              className="p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow"
+              className="p-6 bg-white/80 backdrop-blur-sm rounded-xl shadow-sm hover:shadow-md transition-shadow border border-blue-50"
             >
-              <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-pink-100 rounded-lg flex items-center justify-center mb-4">
                 <feature.icon className="h-6 w-6 text-blue-600" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
+              <h3 className="text-xl font-semibold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-pink-600">
+                {feature.title}
+              </h3>
               <p className="text-gray-600">{feature.description}</p>
             </motion.div>
           ))}
