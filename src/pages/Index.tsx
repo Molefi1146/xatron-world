@@ -56,26 +56,8 @@ const Index = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="container mx-auto px-4 pt-12 pb-16 text-center relative"
+        className="container mx-auto px-4 pt-12 pb-16 text-center"
       >
-        {/* Background Decorative Images */}
-        <motion.img
-          src="https://images.unsplash.com/photo-1469041797191-9881f0097365?auto=format&fit=crop&w=800&q=80"
-          alt="Travel Background"
-          className="absolute top-20 -left-10 w-48 h-48 rounded-2xl opacity-20 rotate-6 object-cover"
-          initial={{ opacity: 0, x: -100 }}
-          animate={{ opacity: 0.2, x: 0 }}
-          transition={{ delay: 0.3, duration: 1 }}
-        />
-        <motion.img
-          src="https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=800&q=80"
-          alt="Travel Background"
-          className="absolute top-40 -right-10 w-56 h-56 rounded-2xl opacity-20 -rotate-6 object-cover hidden md:block"
-          initial={{ opacity: 0, x: 100 }}
-          animate={{ opacity: 0.2, x: 0 }}
-          transition={{ delay: 0.5, duration: 1 }}
-        />
-
         {/* Logo */}
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
@@ -144,18 +126,6 @@ const Index = () => {
           ))}
         </div>
       </section>
-
-      {/* Decorative Bottom Images */}
-      <div className="relative overflow-hidden">
-        <motion.img
-          src="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=800&q=80"
-          alt="Travel Destination"
-          className="absolute bottom-0 left-0 w-64 h-64 rounded-tr-3xl opacity-10 object-cover hidden lg:block"
-          initial={{ opacity: 0, y: 100 }}
-          animate={{ opacity: 0.1, y: 0 }}
-          transition={{ delay: 0.7, duration: 1 }}
-        />
-      </div>
     </div>
   );
 };
