@@ -1,22 +1,38 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Users, Plane, CreditCard, Heart, Mail } from "lucide-react";
+import { Users, Plane, CreditCard, Heart, Mail, Phone, User } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 
 const Index = () => {
-  const [email, setEmail] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) {
+    const { email, firstName, lastName, phoneNumber } = formData;
+    
+    if (!email || !firstName || !lastName || !phoneNumber) {
       toast({
-        title: "Please enter your email",
+        title: "Please fill in all fields",
         variant: "destructive",
       });
       return;
@@ -26,7 +42,12 @@ const Index = () => {
     try {
       const { error } = await supabase
         .from('waitlist')
-        .insert([{ email }]);
+        .insert([{ 
+          email,
+          first_name: firstName,
+          last_name: lastName,
+          phone_number: phoneNumber
+        }]);
 
       if (error) throw error;
 
@@ -34,7 +55,13 @@ const Index = () => {
         title: "Thanks for joining!",
         description: "We'll notify you when we launch.",
       });
-      setEmail("");
+      setFormData({
+        email: "",
+        firstName: "",
+        lastName: "",
+        phoneNumber: "",
+      });
+      setIsOpen(false);
     } catch (error: any) {
       if (error.code === '23505') {
         toast({
@@ -111,31 +138,85 @@ const Index = () => {
           Join a community of passionate travelers. Plan trips, split costs, and create unforgettable memories with friends and family.
         </p>
         
-        {/* Email Signup Form */}
-        <motion.form 
-          onSubmit={handleSubmit}
-          className="max-w-md mx-auto flex gap-2"
+        {/* Waitlist Dialog */}
+        <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
+          className="flex justify-center"
         >
-          <Input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="flex-1 bg-gray-800/50 border-gray-700"
-            disabled={isSubmitting}
-          />
-          <Button 
-            type="submit" 
-            className="bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 text-white"
-            disabled={isSubmitting}
-          >
-            <Mail className="mr-2 h-4 w-4" />
-            {isSubmitting ? 'Joining...' : 'Join Waitlist'}
-          </Button>
-        </motion.form>
+          <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <DialogTrigger asChild>
+              <Button 
+                className="bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 text-white"
+                disabled={isSubmitting}
+              >
+                <Mail className="mr-2 h-4 w-4" />
+                Join Waitlist
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px] bg-gray-900 text-white border-gray-800">
+              <DialogHeader>
+                <DialogTitle className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-400">
+                  Join Our Waitlist
+                </DialogTitle>
+              </DialogHeader>
+              <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="firstName">First Name</Label>
+                    <Input
+                      id="firstName"
+                      placeholder="John"
+                      value={formData.firstName}
+                      onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
+                      className="bg-gray-800/50 border-gray-700"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="lastName">Last Name</Label>
+                    <Input
+                      id="lastName"
+                      placeholder="Doe"
+                      value={formData.lastName}
+                      onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
+                      className="bg-gray-800/50 border-gray-700"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="john@example.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                    className="bg-gray-800/50 border-gray-700"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="phoneNumber">Phone Number</Label>
+                  <Input
+                    id="phoneNumber"
+                    type="tel"
+                    placeholder="+1 (234) 567-8900"
+                    value={formData.phoneNumber}
+                    onChange={(e) => setFormData(prev => ({ ...prev, phoneNumber: e.target.value }))}
+                    className="bg-gray-800/50 border-gray-700"
+                  />
+                </div>
+                <Button 
+                  type="submit" 
+                  className="w-full bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 text-white"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Joining...' : 'Submit'}
+                </Button>
+              </form>
+            </DialogContent>
+          </Dialog>
+        </motion.div>
       </motion.section>
 
       {/* Features Section */}
