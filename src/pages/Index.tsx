@@ -95,7 +95,7 @@ const Index = () => {
           className="mb-8"
         >
           <img 
-            src="/lovable-uploads/42f1d055-a57c-41e8-bb0f-0369115a85f0.png" 
+            src="/lovable-uploads/6b03ec34-6136-4245-a3f5-2c91230c4f53.png" 
             alt="Xatron World"
             className="w-32 h-32 mx-auto"
           />
