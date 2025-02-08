@@ -21,7 +21,7 @@ const Index = () => {
     email: "",
     firstName: "",
     lastName: "",
-    phoneNumber: "",
+    phoneNumber: "+27",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
@@ -33,6 +33,16 @@ const Index = () => {
     if (!email || !firstName || !lastName || !phoneNumber) {
       toast({
         title: "Please fill in all fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Validate phone number starts with +27
+    if (!phoneNumber.startsWith("+27")) {
+      toast({
+        title: "Invalid phone number",
+        description: "Phone number must start with +27 for South Africa",
         variant: "destructive",
       });
       return;
@@ -59,7 +69,7 @@ const Index = () => {
         email: "",
         firstName: "",
         lastName: "",
-        phoneNumber: "",
+        phoneNumber: "+27",
       });
       setIsOpen(false);
     } catch (error: any) {
@@ -200,9 +210,16 @@ const Index = () => {
                   <Input
                     id="phoneNumber"
                     type="tel"
-                    placeholder="+1 (234) 567-8900"
+                    placeholder="+27 12 345 6789"
                     value={formData.phoneNumber}
-                    onChange={(e) => setFormData(prev => ({ ...prev, phoneNumber: e.target.value }))}
+                    onChange={(e) => {
+                      let value = e.target.value;
+                      // Ensure the value always starts with +27
+                      if (!value.startsWith('+27')) {
+                        value = '+27' + value.replace(/^\+27/, '');
+                      }
+                      setFormData(prev => ({ ...prev, phoneNumber: value }));
+                    }}
                     className="bg-gray-800/50 border-gray-700"
                   />
                 </div>
@@ -246,3 +263,4 @@ const Index = () => {
 };
 
 export default Index;
+
