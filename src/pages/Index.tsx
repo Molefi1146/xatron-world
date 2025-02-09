@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Users, Plane, CreditCard, Heart } from "lucide-react";
 import { WaitlistDialog } from "@/components/waitlist/WaitlistDialog";
@@ -116,6 +115,40 @@ const Index = () => {
               <p className="text-gray-300">
                 With features designed specifically for South African travelers, including ZAR currency support and local payment methods, we're making group travel planning seamless and inclusive.
               </p>
+            </div>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* Student Travel Section */}
+      <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="container mx-auto px-4 py-16 border-t border-gray-800"
+      >
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="space-y-4">
+              <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-400">
+                Making Student Travel More Accessible
+              </h2>
+              <p className="text-gray-300">
+                Educational trips and student adventures shouldn't be limited by financial constraints. Our platform is revolutionizing how students plan and fund their travel experiences, whether it's a school excursion, university field trip, or an independent adventure.
+              </p>
+              <p className="text-gray-300">
+                Students can create their own travel groups, pool resources, and split costs fairly. From organizing class tours to planning weekend getaways with classmates, we make it simple to coordinate and manage group travel finances.
+              </p>
+              <p className="text-gray-300">
+                With features like installment payments, group discounts, and transparent expense tracking, we're making educational and recreational travel more affordable and accessible for students across South Africa.
+              </p>
+            </div>
+            <div>
+              <img
+                src="https://images.unsplash.com/photo-1519389950473-47ba0277781c"
+                alt="Students planning a trip"
+                className="rounded-lg shadow-lg"
+              />
             </div>
           </div>
         </div>
