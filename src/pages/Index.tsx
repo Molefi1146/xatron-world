@@ -72,7 +72,7 @@ const Index = () => {
         >
           <WaitlistDialog />
           <Link to="/features">
-            <Button variant="outline" className="text-white border-blue-500 hover:bg-blue-500/20">
+            <Button variant="outline" className="text-blue-500 border-blue-500 hover:bg-blue-500/20">
               View Features
             </Button>
           </Link>
