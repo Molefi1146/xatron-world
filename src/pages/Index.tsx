@@ -1,7 +1,10 @@
+
 import { motion } from "framer-motion";
 import { Users, Plane, CreditCard, Heart } from "lucide-react";
 import { WaitlistDialog } from "@/components/waitlist/WaitlistDialog";
 import { FeatureCard } from "@/components/features/FeatureCard";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const Index = () => {
   const features = [
@@ -60,14 +63,19 @@ const Index = () => {
           Join a community of passionate travelers. Plan trips, split costs, and create unforgettable memories with friends and family.
         </p>
         
-        {/* Waitlist Dialog */}
+        {/* Waitlist Dialog and Features Button */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="flex justify-center"
+          className="flex justify-center gap-4"
         >
           <WaitlistDialog />
+          <Link to="/features">
+            <Button variant="outline" className="text-white border-blue-500 hover:bg-blue-500/20">
+              View Features
+            </Button>
+          </Link>
         </motion.div>
       </motion.section>
 
