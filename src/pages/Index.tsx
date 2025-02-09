@@ -86,6 +86,40 @@ const Index = () => {
           ))}
         </div>
       </section>
+
+      {/* South African Travel Story Section */}
+      <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="container mx-auto px-4 py-16"
+      >
+        <div className="max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <img
+                src="https://images.unsplash.com/photo-1472396961693-142e6e269027"
+                alt="South African landscape"
+                className="rounded-lg shadow-lg"
+              />
+            </div>
+            <div className="space-y-4">
+              <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-400">
+                Revolutionizing Stokvel Travel in South Africa
+              </h2>
+              <p className="text-gray-300">
+                In South Africa, stokvels have long been a powerful community savings tool. Now, we're bringing this trusted tradition into the world of travel, making group adventures more accessible than ever.
+              </p>
+              <p className="text-gray-300">
+                Our platform enables stokvel travel groups to collectively save, plan, and book trips together. Whether you're dreaming of exploring the Kruger National Park, experiencing the vibrant culture of Cape Town, or venturing beyond borders, we make it easier to turn those dreams into reality.
+              </p>
+              <p className="text-gray-300">
+                With features designed specifically for South African travelers, including ZAR currency support and local payment methods, we're making group travel planning seamless and inclusive.
+              </p>
+            </div>
+          </div>
+        </div>
+      </motion.section>
     </div>
   );
 };
