@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { Users, Plane, CreditCard, Heart } from "lucide-react";
 import { WaitlistDialog } from "@/components/waitlist/WaitlistDialog";
@@ -10,78 +9,165 @@ const Index = () => {
   const features = [
     {
       icon: Users,
-      title: "Build Your Travel Community",
-      description: "Connect with like-minded travelers and create lasting friendships"
+      title: "Creator-first marketplace",
+      description: "Designed for tour operators to list, sell, and manage experiences in one place."
     },
     {
       icon: CreditCard,
-      title: "Flexible Trip Installments",
-      description: "Travel now, pay later with easy monthly payments"
+      title: "Bookings & payments",
+      description: "Turn discovery into paid bookings with a clear checkout and status tracking."
     },
     {
       icon: Heart,
-      title: "Travel with Loved Ones",
-      description: "Create memorable experiences with family and friends"
+      title: "Trust & retention",
+      description: "Messaging, notifications, and community features that keep travelers coming back."
     },
     {
       icon: Plane,
-      title: "Curated Experiences",
-      description: "Discover unique destinations and authentic local experiences"
+      title: "Discover local tours",
+      description: "Help travelers find the right experiences faster with curated, South Africa-first listings."
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800">
+    <div className="min-h-screen bg-[#0b0f0d] text-white">
+      <div className="pointer-events-none fixed inset-0 -z-10">
+        <motion.div
+          aria-hidden="true"
+          className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(34,197,94,0.18),rgba(0,0,0,0)_55%)]"
+          animate={{ opacity: [0.7, 1, 0.75], scale: [1, 1.03, 1] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          aria-hidden="true"
+          className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(16,185,129,0.10),rgba(0,0,0,0)_50%)]"
+          animate={{ opacity: [0.6, 0.95, 0.65], scale: [1, 1.02, 1] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </div>
+
+      <header className="container mx-auto px-4 pt-6">
+        <nav className="flex items-center justify-between rounded-2xl border border-white/10 bg-gradient-to-r from-black/40 to-black/20 px-6 py-4 backdrop-blur-md shadow-lg">
+          <div className="flex items-center gap-4">
+            <img
+              src="/Frame%201by1.svg"
+              alt="Xatron"
+              className="h-28 w-28 rounded-3xl"
+            />
+          </div>
+          <div className="hidden items-center gap-10 text-sm font-medium text-white/60 md:flex">
+            <Link to="/features" className="hover:text-white hover:scale-105 transition-all duration-200">Features</Link>
+            <a href="#about" className="hover:text-white hover:scale-105 transition-all duration-200">About</a>
+          </div>
+          <div className="flex items-center gap-3">
+            <WaitlistDialog />
+          </div>
+        </nav>
+      </header>
+
       {/* Hero Section */}
       <motion.section 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="container mx-auto px-4 pt-12 pb-16 text-center"
+        className="container mx-auto px-4 pt-16 pb-20"
       >
-        {/* Logo */}
-        <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="mb-8"
-        >
-          <img 
-            src="/lovable-uploads/6b03ec34-6136-4245-a3f5-2c91230c4f53.png" 
-            alt="Xatron World"
-            className="w-32 h-32 mx-auto"
-          />
-        </motion.div>
+        <div className="grid items-center gap-12 lg:gap-16 md:grid-cols-2">
+          <div className="text-left">
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.05, duration: 0.6 }}
+              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-4 py-1.5 text-xs font-medium text-white/70"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-[#1DB954]" />
+              BETA · 2026
+            </motion.span>
+            <motion.h1
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.12, duration: 0.8 }}
+              className="mt-8 text-5xl font-semibold leading-[1.1] tracking-tight md:text-6xl lg:text-7xl"
+            >
+              Turn Your Tours into a
+              <span className="text-[#1DB954]"> Digital Business</span>.
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.18, duration: 0.8 }}
+              className="mt-6 max-w-xl text-lg leading-relaxed text-white/70 md:text-xl"
+            >
+              The marketplace built for South African tour creators. List in minutes, manage bookings, and get paid—while travelers discover and book experiences with confidence.
+            </motion.p>
 
-        <span className="inline-block px-3 py-1 mb-6 text-sm font-medium bg-gradient-to-r from-blue-500/20 to-pink-500/20 text-white rounded-full border border-blue-500/30">
-          Coming Soon
-        </span>
-        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-400">
-          Travel Together, Create Stories
-        </h1>
-        <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-          Join a community of passionate travelers. Plan trips, split costs, and create unforgettable memories with friends and family.
-        </p>
-        
-        {/* Waitlist Dialog and Features Button */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          className="flex justify-center gap-4"
-        >
-          <WaitlistDialog />
-          <Link to="/features">
-            <Button variant="outline" className="text-blue-500 border-blue-500 hover:bg-blue-500/20">
-              View Features
-            </Button>
-          </Link>
-        </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+              className="mt-10 flex flex-wrap items-center gap-4"
+            >
+              <WaitlistDialog />
+              <Link to="/features">
+                <Button
+                  variant="outline"
+                  className="rounded-full border-white/15 bg-transparent text-white/80 hover:bg-white/5 hover:text-white hover:scale-105 transition-all duration-200"
+                >
+                  See how it works
+                </Button>
+              </Link>
+            </motion.div>
+
+            <div className="mt-10 flex items-center gap-8 text-xs font-medium text-white/40">
+              <span>Creators</span>
+              <span className="text-white/20">·</span>
+              <span>Travelers</span>
+              <span className="text-white/20">·</span>
+              <span>Operators</span>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute -inset-8 rounded-[32px] bg-[radial-gradient(circle_at_30%_20%,rgba(29,185,84,0.25),rgba(0,0,0,0)_60%)] blur-2xl" />
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: [0, -8, 0] }}
+              transition={{ opacity: { duration: 0.8 }, y: { duration: 8, repeat: Infinity, ease: "easeInOut" } }}
+              className="relative overflow-hidden rounded-[28px] border border-white/10 bg-black/40 p-5 backdrop-blur shadow-2xl"
+            >
+              <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gradient-to-b from-white/10 to-black/60">
+                <img
+                  src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80"
+                  alt="South African landscape"
+                  className="h-full w-full object-cover opacity-80"
+                />
+              </div>
+              <div className="mt-5 grid gap-3">
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.15 }}
+                  className="flex items-center justify-between rounded-xl border border-white/10 bg-black/40 px-5 py-3.5"
+                >
+                  <div className="text-sm text-white/80">This week</div>
+                  <div className="text-sm font-semibold text-[#1DB954]">R 24,580</div>
+                </motion.div>
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.15 }}
+                  className="rounded-xl border border-white/10 bg-black/40 px-5 py-3.5"
+                >
+                  <div className="text-sm font-medium text-white/85">New booking · Kruger Safari</div>
+                  <div className="mt-1 text-xs text-white/50">Just now · +R 3,200</div>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
       </motion.section>
 
       {/* Features Section */}
-      <section className="container mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <section className="container mx-auto px-4 py-20">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {features.map((feature, index) => (
             <FeatureCard
               key={feature.title}
@@ -94,73 +180,87 @@ const Index = () => {
         </div>
       </section>
 
-      {/* South African Travel Story Section */}
+      <div id="about" />
+
       <motion.section 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="container mx-auto px-4 py-16"
+        className="container mx-auto px-4 py-24"
       >
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <img
-                src="https://images.unsplash.com/photo-1472396961693-142e6e269027"
-                alt="South African landscape"
-                className="rounded-lg shadow-lg"
+                src="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1400&q=80"
+                alt="How Xatron works"
+                className="rounded-2xl shadow-2xl border border-white/10"
               />
             </div>
-            <div className="space-y-4">
-              <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-400">
-                Revolutionizing Stokvel Travel in South Africa
+            <div className="space-y-6">
+              <h2 className="text-4xl font-semibold tracking-tight">
+                From discovery to paid booking—end to end.
               </h2>
-              <p className="text-gray-300">
-                In South Africa, stokvels have long been a powerful community savings tool. Now, we're bringing this trusted tradition into the world of travel, making group adventures more accessible than ever.
+              <p className="text-lg text-white/70 leading-relaxed">
+                Travelers discover trips and tours, compare options, and save favorites.
               </p>
-              <p className="text-gray-300">
-                Our platform enables stokvel travel groups to collectively save, plan, and book trips together. Whether you're dreaming of exploring the Kruger National Park, experiencing the vibrant culture of Cape Town, or venturing beyond borders, we make it easier to turn those dreams into reality.
+              <p className="text-lg text-white/70 leading-relaxed">
+                Book directly from the listing and track payment status and confirmations in one place.
               </p>
-              <p className="text-gray-300">
-                With features designed specifically for South African travelers, including ZAR currency support and local payment methods, we're making group travel planning seamless and inclusive.
+              <p className="text-lg text-white/70 leading-relaxed">
+                Messaging and updates reduce manual coordination, improve trust, and cut support load.
               </p>
             </div>
           </div>
         </div>
       </motion.section>
 
-      {/* Student Travel Section */}
       <motion.section 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="container mx-auto px-4 py-16 border-t border-gray-800"
+        className="container mx-auto px-4 py-24 border-t border-white/10"
       >
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="space-y-4">
-              <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-400">
-                Making Student Travel More Accessible
+        <div className="max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <h2 className="text-4xl font-semibold tracking-tight">
+                Built for creators: list, optimize, and grow.
               </h2>
-              <p className="text-gray-300">
-                Educational trips and student adventures shouldn't be limited by financial constraints. Our platform is revolutionizing how students plan and fund their travel experiences, whether it's a school excursion, university field trip, or an independent adventure.
+              <p className="text-lg text-white/70 leading-relaxed">
+                Create listings fast, manage availability, and control your inventory without spreadsheets.
               </p>
-              <p className="text-gray-300">
-                Students can create their own travel groups, pool resources, and split costs fairly. From organizing class tours to planning weekend getaways with classmates, we make it simple to coordinate and manage group travel finances.
+              <p className="text-lg text-white/70 leading-relaxed">
+                Use promo codes and performance insights to increase conversion and fill off-peak dates.
               </p>
-              <p className="text-gray-300">
-                With features like installment payments, group discounts, and transparent expense tracking, we're making educational and recreational travel more affordable and accessible for students across South Africa.
+              <p className="text-lg text-white/70 leading-relaxed">
+                Track the funnel from views to bookings to payments and double down on what works.
               </p>
             </div>
             <div>
               <img
-                src="https://images.unsplash.com/photo-1519389950473-47ba0277781c"
-                alt="Students planning a trip"
-                className="rounded-lg shadow-lg"
+                src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1400&q=80"
+                alt="Creator tools"
+                className="rounded-2xl shadow-2xl border border-white/10"
               />
             </div>
           </div>
         </div>
       </motion.section>
+
+      {/* Footer */}
+      <footer className="container mx-auto px-4 py-16 border-t border-white/10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <img
+            src="/footer.svg"
+            alt="Xatron"
+            className="h-16 w-auto"
+          />
+          <div className="text-sm font-medium text-white/50">
+            Since 2025
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };

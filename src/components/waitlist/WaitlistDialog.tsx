@@ -102,16 +102,16 @@ export const WaitlistDialog = () => {
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button 
-          className="bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 text-white"
+          className="rounded-full bg-[#1DB954] text-black hover:bg-[#1ed760] font-semibold"
           disabled={isSubmitting}
         >
           <Mail className="mr-2 h-4 w-4" />
           Join Waitlist
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-gray-900 text-white border-gray-800">
+      <DialogContent className="sm:max-w-[425px] bg-[#0b0f0d] text-white border-white/10">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-pink-400">
+          <DialogTitle className="text-2xl font-semibold tracking-tight text-white">
             Join Our Waitlist
           </DialogTitle>
         </DialogHeader>
@@ -169,7 +169,7 @@ export const WaitlistDialog = () => {
           </div>
           <Button 
             type="submit" 
-            className="w-full bg-gradient-to-r from-blue-500 to-pink-500 hover:from-blue-600 hover:to-pink-600 text-white"
+            className="w-full rounded-full bg-[#1DB954] text-black hover:bg-[#1ed760] font-semibold"
             disabled={isSubmitting}
           >
             {isSubmitting ? 'Joining...' : 'Submit'}
