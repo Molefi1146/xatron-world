@@ -1,12 +1,58 @@
 import { motion } from "framer-motion";
-import { Users, Plane, CreditCard, Heart } from "lucide-react";
+import { Users, Plane, CreditCard, Heart, MapPin, Wallet, Plus, List } from "lucide-react";
 import { WaitlistDialog } from "@/components/waitlist/WaitlistDialog";
 import { FeatureCard } from "@/components/features/FeatureCard";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import Lottie from "lottie-react";
+import { useEffect, useRef } from "react";
+import mapAnimation from "@/components/Animation/map animation.json";
+import statsAnimation from "@/components/Animation/stats.json";
+import listingsAnimation from "@/components/Animation/listings.json";
+import bookingsAnimation from "@/components/Animation/Untitled file (1).json";
+import communityAnimation from "@/components/Animation/community.json";
+import creatorVideo from "@/components/Animation/project-97371f16-02f4-487c-9df1-d62159016262.webm";
 
 const Index = () => {
-  const features = [
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    const section = sectionRef.current;
+    if (!video || !section) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.currentTime = 0;
+            video.play().catch((err) => console.log('Video play error:', err));
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(section);
+
+    const handleTimeUpdate = () => {
+      if (video.currentTime >= 4) {
+        video.pause();
+      }
+    };
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+
+    return () => {
+      observer.disconnect();
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+    };
+  }, []);
+
+  const quickFeatures = [
     {
       icon: Users,
       title: "Creator-first marketplace",
@@ -26,6 +72,74 @@ const Index = () => {
       icon: Plane,
       title: "Discover local tours",
       description: "Help travelers find the right experiences faster with curated, South Africa-first listings."
+    }
+  ];
+
+  const detailedFeatures = [
+    {
+      icon: MapPin,
+      title: "Discovery that converts",
+      description: "Help travelers find the right tours faster with curated, South Africa-first listings and clear trip/tour detail pages.",
+      details: [
+        "Curated discovery and browsing",
+        "Detail pages built for decision-making",
+        "Wishlist-ready experiences",
+        "Host messaging before booking"
+      ],
+      useLottie: true,
+      lottieAnimation: mapAnimation
+    },
+    {
+      icon: Wallet,
+      title: "Creator operations",
+      description: "Tools for tour creators to run a real business: inventory, scheduling, and simple day-to-day operations.",
+      details: [
+        "Availability and capacity management",
+        "Structured bookings (no spreadsheets)",
+        "Promo codes and conversion levers",
+        "Performance insights"
+      ],
+      useLottie: true,
+      lottieAnimation: statsAnimation
+    },
+    {
+      icon: Plus,
+      title: "Frictionless listings",
+      description: "Create and publish tours quickly with guided flows that reduce time-to-first-listing for new providers.",
+      details: [
+        "Fast listing creation",
+        "Images, itinerary, and pricing support",
+        "Publish and update anytime",
+        "Built to scale your inventory"
+      ],
+      useLottie: true,
+      lottieAnimation: listingsAnimation
+    },
+    {
+      icon: CreditCard,
+      title: "Bookings & payments",
+      description: "A clear end-to-end booking flow with payment initiation, status tracking, and confirmations.",
+      details: [
+        "Secure payment initiation",
+        "Payment status visibility",
+        "Confirmation experience",
+        "Centralized booking management"
+      ],
+      useLottie: true,
+      lottieAnimation: bookingsAnimation
+    },
+    {
+      icon: List,
+      title: "Trust, retention, community",
+      description: "Messaging, updates, and community features that increase confidence and bring travelers back.",
+      details: [
+        "Direct traveler ↔ host communication",
+        "Notifications and updates",
+        "Community layer for retention",
+        "Reduced support workload"
+      ],
+      useLottie: true,
+      lottieAnimation: communityAnimation
     }
   ];
 
@@ -56,7 +170,7 @@ const Index = () => {
             />
           </div>
           <div className="hidden items-center gap-10 text-sm font-medium text-white/60 md:flex">
-            <Link to="/features" className="hover:text-white hover:scale-105 transition-all duration-200">Features</Link>
+            <a href="#features" className="hover:text-white hover:scale-105 transition-all duration-200">Features</a>
             <a href="#about" className="hover:text-white hover:scale-105 transition-all duration-200">About</a>
           </div>
           <div className="flex items-center gap-3">
@@ -108,14 +222,14 @@ const Index = () => {
               className="mt-10 flex flex-wrap items-center gap-4"
             >
               <WaitlistDialog />
-              <Link to="/features">
+              <a href="#features">
                 <Button
                   variant="outline"
                   className="rounded-full border-white/15 bg-transparent text-white/80 hover:bg-white/5 hover:text-white hover:scale-105 transition-all duration-200"
                 >
                   See how it works
                 </Button>
-              </Link>
+              </a>
             </motion.div>
 
             <div className="mt-10 flex items-center gap-8 text-xs font-medium text-white/40">
@@ -168,7 +282,7 @@ const Index = () => {
       {/* Features Section */}
       <section className="container mx-auto px-4 py-20">
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {features.map((feature, index) => (
+          {quickFeatures.map((feature, index) => (
             <FeatureCard
               key={feature.title}
               icon={feature.icon}
@@ -215,7 +329,8 @@ const Index = () => {
         </div>
       </motion.section>
 
-      <motion.section 
+      <motion.section
+        ref={sectionRef}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -238,13 +353,93 @@ const Index = () => {
               </p>
             </div>
             <div>
-              <img
-                src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1400&q=80"
-                alt="Creator tools"
-                className="rounded-2xl shadow-2xl border border-white/10"
+              <video
+                ref={videoRef}
+                src={creatorVideo}
+                muted
+                playsInline
+                className="rounded-2xl shadow-2xl border border-white/10 w-full"
               />
             </div>
           </div>
+        </div>
+      </motion.section>
+
+      {/* Detailed Features Section */}
+      <div id="features" />
+      <section className="container mx-auto px-4 py-20">
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-semibold tracking-tight mb-6">
+            Features that power a real travel marketplace
+          </h2>
+          <p className="text-lg md:text-xl text-white/70">
+            Built for travelers to book with confidence and for creators to run operations, inventory, and payments in one place.
+          </p>
+        </motion.div>
+        <div className="grid gap-16">
+          {detailedFeatures.map((feature, index) => (
+            <motion.div
+              key={feature.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.2 }}
+              className="flex flex-col md:flex-row gap-12 items-center"
+            >
+              <div className="flex-1 space-y-6">
+                <div className="flex items-center gap-4">
+                  <feature.icon className="w-10 h-10 text-[#1DB954]" />
+                  <h3 className="text-3xl font-semibold tracking-tight">{feature.title}</h3>
+                </div>
+                <p className="text-lg text-white/70 leading-relaxed">{feature.description}</p>
+                <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {feature.details.map((detail) => (
+                    <li key={detail} className="flex items-center gap-3">
+                      <div className="w-2 h-2 bg-[#1DB954] rounded-full" />
+                      <span className="text-white/70">{detail}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="flex-1">
+                <motion.div
+                  whileHover={{ y: -6, boxShadow: "0 20px 40px -10px rgba(29, 185, 84, 0.15)" }}
+                  transition={{ duration: 0.18 }}
+                  className="bg-gradient-to-br from-black/40 to-black/20 p-8 rounded-2xl border border-white/10 backdrop-blur shadow-lg"
+                >
+                  {feature.useLottie ? (
+                    <div className="aspect-video bg-black/40 rounded-2xl border border-white/10 flex items-center justify-center">
+                      <Lottie animationData={feature.lottieAnimation} />
+                    </div>
+                  ) : (
+                    <div className="aspect-video bg-black/40 rounded-2xl border border-white/10 flex items-center justify-center">
+                      <feature.icon className="w-16 h-16 text-[#1DB954] opacity-40" />
+                    </div>
+                  )}
+                </motion.div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6 }}
+        className="container mx-auto px-4 py-24 text-center"
+      >
+        <div className="max-w-2xl mx-auto space-y-8">
+          <h2 className="text-4xl font-semibold tracking-tight">Get early access</h2>
+          <p className="text-lg text-white/70 leading-relaxed">
+            Join the beta and be first in line when Xatron opens to travelers and creators.
+          </p>
+          <WaitlistDialog />
         </div>
       </motion.section>
 

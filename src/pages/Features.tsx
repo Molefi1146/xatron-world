@@ -4,6 +4,12 @@ import { Link } from "react-router-dom";
 import { MapPin, Wallet, CreditCard, Plus, List } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { WaitlistDialog } from "@/components/waitlist/WaitlistDialog";
+import Lottie from "lottie-react";
+import mapAnimation from "@/components/Animation/map animation.json";
+import statsAnimation from "@/components/Animation/stats.json";
+import listingsAnimation from "@/components/Animation/listings.json";
+import bookingsAnimation from "@/components/Animation/Untitled file (1).json";
+import communityAnimation from "@/components/Animation/community.json";
 
 const Features = () => {
   const features = [
@@ -16,7 +22,9 @@ const Features = () => {
         "Detail pages built for decision-making",
         "Wishlist-ready experiences",
         "Host messaging before booking"
-      ]
+      ],
+      useLottie: true,
+      lottieAnimation: mapAnimation
     },
     {
       icon: Wallet,
@@ -27,7 +35,9 @@ const Features = () => {
         "Structured bookings (no spreadsheets)",
         "Promo codes and conversion levers",
         "Performance insights"
-      ]
+      ],
+      useLottie: true,
+      lottieAnimation: statsAnimation
     },
     {
       icon: Plus,
@@ -38,7 +48,9 @@ const Features = () => {
         "Images, itinerary, and pricing support",
         "Publish and update anytime",
         "Built to scale your inventory"
-      ]
+      ],
+      useLottie: true,
+      lottieAnimation: listingsAnimation
     },
     {
       icon: CreditCard,
@@ -49,7 +61,9 @@ const Features = () => {
         "Payment status visibility",
         "Confirmation experience",
         "Centralized booking management"
-      ]
+      ],
+      useLottie: true,
+      lottieAnimation: bookingsAnimation
     },
     {
       icon: List,
@@ -60,7 +74,9 @@ const Features = () => {
         "Notifications and updates",
         "Community layer for retention",
         "Reduced support workload"
-      ]
+      ],
+      useLottie: true,
+      lottieAnimation: communityAnimation
     }
   ];
 
@@ -145,10 +161,15 @@ const Features = () => {
                   transition={{ duration: 0.18 }}
                   className="bg-gradient-to-br from-black/40 to-black/20 p-8 rounded-2xl border border-white/10 backdrop-blur shadow-lg"
                 >
-                  {/* Placeholder for feature illustration/mockup */}
-                  <div className="aspect-video bg-black/40 rounded-2xl border border-white/10 flex items-center justify-center">
-                    <feature.icon className="w-16 h-16 text-[#1DB954] opacity-40" />
-                  </div>
+                  {feature.useLottie ? (
+                    <div className="aspect-video bg-black/40 rounded-2xl border border-white/10 flex items-center justify-center">
+                      <Lottie animationData={feature.lottieAnimation} />
+                    </div>
+                  ) : (
+                    <div className="aspect-video bg-black/40 rounded-2xl border border-white/10 flex items-center justify-center">
+                      <feature.icon className="w-16 h-16 text-[#1DB954] opacity-40" />
+                    </div>
+                  )}
                 </motion.div>
               </div>
             </motion.div>
