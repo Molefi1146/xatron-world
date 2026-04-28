@@ -99,7 +99,7 @@ const Features = () => {
 
       {/* Header */}
       <header className="container mx-auto px-4 py-8">
-        <nav className="flex items-center justify-between rounded-2xl border border-white/10 bg-gradient-to-r from-black/40 to-black/20 px-6 py-4 backdrop-blur-md shadow-lg mb-16">
+        <nav className="flex items-center justify-between rounded-2xl bg-gradient-to-r from-black/40 to-black/20 px-6 py-4 backdrop-blur-md shadow-lg mb-16">
           <Link to="/" className="flex items-center gap-4">
             <img
               src="/Frame%201by1.svg"
@@ -159,14 +159,14 @@ const Features = () => {
                 <motion.div
                   whileHover={{ y: -6, boxShadow: "0 20px 40px -10px rgba(29, 185, 84, 0.15)" }}
                   transition={{ duration: 0.18 }}
-                  className="bg-gradient-to-br from-black/40 to-black/20 p-8 rounded-2xl border border-white/10 backdrop-blur shadow-lg"
+                  className="bg-gradient-to-br from-black/40 to-black/20 p-8 rounded-2xl backdrop-blur shadow-lg"
                 >
                   {feature.useLottie ? (
-                    <div className="aspect-video bg-black/40 rounded-2xl border border-white/10 flex items-center justify-center">
-                      <Lottie animationData={feature.lottieAnimation} />
+                    <div className="aspect-video bg-black/40 rounded-2xl flex items-center justify-center overflow-hidden">
+                      <Lottie animationData={feature.lottieAnimation} className="w-full h-full" />
                     </div>
                   ) : (
-                    <div className="aspect-video bg-black/40 rounded-2xl border border-white/10 flex items-center justify-center">
+                    <div className="aspect-video bg-black/40 rounded-2xl flex items-center justify-center overflow-hidden">
                       <feature.icon className="w-16 h-16 text-[#1DB954] opacity-40" />
                     </div>
                   )}
@@ -194,12 +194,12 @@ const Features = () => {
       </motion.section>
 
       {/* Footer */}
-      <footer className="container mx-auto px-4 py-16 border-t border-white/10">
+      <footer className="container mx-auto px-4 py-16">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <img
-            src="/footer.svg"
+            src="/Frame%20222footer.svg"
             alt="Xatron"
-            className="h-16 w-auto"
+            className="w-full max-w-sm md:max-w-md lg:max-w-lg h-auto"
           />
           <div className="text-sm font-medium text-white/50">
             Since 2025

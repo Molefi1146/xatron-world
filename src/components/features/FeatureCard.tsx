@@ -17,9 +17,9 @@ export const FeatureCard = ({ icon: Icon, title, description, index }: FeatureCa
       transition={{ delay: index * 0.1, duration: 0.8 }}
       whileHover={{ y: -6, boxShadow: "0 20px 40px -10px rgba(29, 185, 84, 0.15)" }}
       whileTap={{ scale: 0.98 }}
-      className="p-6 rounded-2xl border border-white/10 bg-gradient-to-br from-black/40 to-black/20 backdrop-blur shadow-lg transition-all duration-300"
+      className="p-6 rounded-2xl bg-gradient-to-br from-black/40 to-black/20 backdrop-blur shadow-lg transition-all duration-300"
     >
-      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-black/40">
+      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-black/40">
         <Icon className="h-6 w-6 text-[#1DB954]" />
       </div>
       <h3 className="mb-2 text-lg font-semibold tracking-tight text-white">

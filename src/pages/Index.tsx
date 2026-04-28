@@ -161,7 +161,7 @@ const Index = () => {
       </div>
 
       <header className="container mx-auto px-4 pt-6">
-        <nav className="flex items-center justify-between rounded-2xl border border-white/10 bg-gradient-to-r from-black/40 to-black/20 px-6 py-4 backdrop-blur-md shadow-lg">
+        <nav className="flex items-center justify-between rounded-2xl bg-gradient-to-r from-black/40 to-black/20 px-6 py-4 backdrop-blur-md shadow-lg">
           <div className="flex items-center gap-4">
             <img
               src="/Frame%201by1.svg"
@@ -192,7 +192,7 @@ const Index = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.05, duration: 0.6 }}
-              className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-4 py-1.5 text-xs font-medium text-white/70"
+              className="inline-flex items-center gap-2 rounded-full bg-black/30 px-4 py-1.5 text-xs font-medium text-white/70"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-[#1DB954]" />
               BETA · 2026
@@ -225,7 +225,7 @@ const Index = () => {
               <a href="#features">
                 <Button
                   variant="outline"
-                  className="rounded-full border-white/15 bg-transparent text-white/80 hover:bg-white/5 hover:text-white hover:scale-105 transition-all duration-200"
+                  className="rounded-full bg-transparent text-white/80 hover:bg-white/5 hover:text-white hover:scale-105 transition-all duration-200"
                 >
                   See how it works
                 </Button>
@@ -247,7 +247,7 @@ const Index = () => {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: [0, -8, 0] }}
               transition={{ opacity: { duration: 0.8 }, y: { duration: 8, repeat: Infinity, ease: "easeInOut" } }}
-              className="relative overflow-hidden rounded-[28px] border border-white/10 bg-black/40 p-5 backdrop-blur shadow-2xl"
+              className="relative overflow-hidden rounded-[28px] bg-black/40 p-5 backdrop-blur shadow-2xl"
             >
               <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gradient-to-b from-white/10 to-black/60">
                 <img
@@ -260,7 +260,7 @@ const Index = () => {
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.15 }}
-                  className="flex items-center justify-between rounded-xl border border-white/10 bg-black/40 px-5 py-3.5"
+                  className="flex items-center justify-between rounded-xl bg-black/40 px-5 py-3.5"
                 >
                   <div className="text-sm text-white/80">This week</div>
                   <div className="text-sm font-semibold text-[#1DB954]">R 24,580</div>
@@ -268,7 +268,7 @@ const Index = () => {
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.15 }}
-                  className="rounded-xl border border-white/10 bg-black/40 px-5 py-3.5"
+                  className="rounded-xl bg-black/40 px-5 py-3.5"
                 >
                   <div className="text-sm font-medium text-white/85">New booking · Kruger Safari</div>
                   <div className="mt-1 text-xs text-white/50">Just now · +R 3,200</div>
@@ -308,7 +308,7 @@ const Index = () => {
               <img
                 src="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1400&q=80"
                 alt="How Xatron works"
-                className="rounded-2xl shadow-2xl border border-white/10"
+                className="rounded-2xl shadow-2xl"
               />
             </div>
             <div className="space-y-6">
@@ -334,10 +334,10 @@ const Index = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="container mx-auto px-4 py-24 border-t border-white/10"
+        className="container mx-auto px-4 py-24"
       >
         <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid gap-12 items-center md:grid-cols-[1fr_1.2fr]">
             <div className="space-y-6">
               <h2 className="text-4xl font-semibold tracking-tight">
                 Built for creators: list, optimize, and grow.
@@ -353,13 +353,15 @@ const Index = () => {
               </p>
             </div>
             <div>
-              <video
-                ref={videoRef}
-                src={creatorVideo}
-                muted
-                playsInline
-                className="rounded-2xl shadow-2xl border border-white/10 w-full"
-              />
+              <div className="aspect-video w-full min-h-[320px] md:min-h-[420px] overflow-hidden rounded-2xl shadow-2xl bg-black/40">
+                <video
+                  ref={videoRef}
+                  src={creatorVideo}
+                  muted
+                  playsInline
+                  className="h-full w-full object-cover"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -409,14 +411,14 @@ const Index = () => {
                 <motion.div
                   whileHover={{ y: -6, boxShadow: "0 20px 40px -10px rgba(29, 185, 84, 0.15)" }}
                   transition={{ duration: 0.18 }}
-                  className="bg-gradient-to-br from-black/40 to-black/20 p-8 rounded-2xl border border-white/10 backdrop-blur shadow-lg"
+                  className="bg-gradient-to-br from-black/40 to-black/20 p-8 rounded-2xl backdrop-blur shadow-lg"
                 >
                   {feature.useLottie ? (
-                    <div className="aspect-video bg-black/40 rounded-2xl border border-white/10 flex items-center justify-center">
-                      <Lottie animationData={feature.lottieAnimation} />
+                    <div className="aspect-video bg-black/40 rounded-2xl flex items-center justify-center overflow-hidden">
+                      <Lottie animationData={feature.lottieAnimation} className="w-full h-full" />
                     </div>
                   ) : (
-                    <div className="aspect-video bg-black/40 rounded-2xl border border-white/10 flex items-center justify-center">
+                    <div className="aspect-video bg-black/40 rounded-2xl flex items-center justify-center overflow-hidden">
                       <feature.icon className="w-16 h-16 text-[#1DB954] opacity-40" />
                     </div>
                   )}
@@ -444,12 +446,12 @@ const Index = () => {
       </motion.section>
 
       {/* Footer */}
-      <footer className="container mx-auto px-4 py-16 border-t border-white/10">
+      <footer className="container mx-auto px-4 py-16">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <img
-            src="/footer.svg"
+            src="/Frame%20222footer.svg"
             alt="Xatron"
-            className="h-16 w-auto"
+            className="w-full max-w-sm md:max-w-md lg:max-w-lg h-auto"
           />
           <div className="text-sm font-medium text-white/50">
             Since 2025
