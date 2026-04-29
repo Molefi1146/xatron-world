@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { Users, Plane, CreditCard, Heart, MapPin, Wallet, Plus, List } from "lucide-react";
 import { WaitlistDialog } from "@/components/waitlist/WaitlistDialog";
 import { FeatureCard } from "@/components/features/FeatureCard";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Lottie from "lottie-react";
 import { useEffect, useRef } from "react";
@@ -161,7 +160,7 @@ const Index = () => {
       </div>
 
       <header className="container mx-auto px-4 pt-6">
-        <nav className="flex items-center justify-between rounded-2xl bg-gradient-to-r from-black/40 to-black/20 px-6 py-4 backdrop-blur-md shadow-lg">
+        <nav className="sticky top-4 z-50 flex items-center justify-between rounded-2xl bg-gradient-to-r from-black/40 to-black/20 px-6 py-4 backdrop-blur-md shadow-lg">
           <div className="flex items-center gap-4">
             <img
               src="/Frame%201by1.svg"
@@ -232,7 +231,7 @@ const Index = () => {
               </a>
             </motion.div>
 
-            <div className="mt-10 flex items-center gap-8 text-xs font-medium text-white/40">
+            <div className="mt-10 flex items-center gap-8 text-xs font-medium text-white/60">
               <span>Creators</span>
               <span className="text-white/20">·</span>
               <span>Travelers</span>
@@ -359,6 +358,7 @@ const Index = () => {
                   src={creatorVideo}
                   muted
                   playsInline
+                  preload="none"
                   className="h-full w-full object-cover"
                 />
               </div>

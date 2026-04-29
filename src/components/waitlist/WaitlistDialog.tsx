@@ -23,6 +23,7 @@ interface FormData {
 
 export const WaitlistDialog = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     email: "",
     firstName: "",
@@ -77,7 +78,7 @@ export const WaitlistDialog = () => {
         lastName: "",
         phoneNumber: "+27",
       });
-      setIsOpen(false);
+      setIsSuccess(true);
     } catch (error: any) {
       if (error.code === '23505') {
         toast({
@@ -99,7 +100,13 @@ export const WaitlistDialog = () => {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        setIsOpen(open);
+        if (!open) setIsSuccess(false);
+      }}
+    >
       <DialogTrigger asChild>
         <Button 
           className="rounded-full bg-[#1DB954] text-black hover:bg-[#1ed760] font-semibold"
@@ -112,69 +119,84 @@ export const WaitlistDialog = () => {
       <DialogContent className="sm:max-w-[425px] bg-[#0b0f0d] text-white border-white/10">
         <DialogHeader>
           <DialogTitle className="text-2xl font-semibold tracking-tight text-white">
-            Join Our Waitlist
+            {isSuccess ? "You're in" : "Join Our Waitlist"}
           </DialogTitle>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
-          <div className="grid grid-cols-2 gap-4">
+        {isSuccess ? (
+          <div className="mt-4 space-y-4">
+            <p className="text-sm text-white/70">
+              Thanks for joining the Xatron waitlist. We'll notify you as soon as we launch.
+            </p>
+            <Button
+              type="button"
+              className="w-full rounded-full bg-[#1DB954] text-black hover:bg-[#1ed760] font-semibold"
+              onClick={() => setIsOpen(false)}
+            >
+              Close
+            </Button>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="firstName">First Name</Label>
+                <Input
+                  id="firstName"
+                  placeholder="John"
+                  value={formData.firstName}
+                  onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
+                  className="bg-gray-800/50 border-gray-700"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="lastName">Last Name</Label>
+                <Input
+                  id="lastName"
+                  placeholder="Doe"
+                  value={formData.lastName}
+                  onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
+                  className="bg-gray-800/50 border-gray-700"
+                />
+              </div>
+            </div>
             <div className="space-y-2">
-              <Label htmlFor="firstName">First Name</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
-                id="firstName"
-                placeholder="John"
-                value={formData.firstName}
-                onChange={(e) => setFormData(prev => ({ ...prev, firstName: e.target.value }))}
+                id="email"
+                type="email"
+                placeholder="john@example.com"
+                value={formData.email}
+                onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                 className="bg-gray-800/50 border-gray-700"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="lastName">Last Name</Label>
+              <Label htmlFor="phoneNumber">Phone Number</Label>
               <Input
-                id="lastName"
-                placeholder="Doe"
-                value={formData.lastName}
-                onChange={(e) => setFormData(prev => ({ ...prev, lastName: e.target.value }))}
+                id="phoneNumber"
+                type="tel"
+                placeholder="+27 12 345 6789"
+                value={formData.phoneNumber}
+                onChange={(e) => {
+                  let value = e.target.value;
+                  // Ensure the value always starts with +27
+                  if (!value.startsWith('+27')) {
+                    value = '+27' + value.replace(/^\+27/, '');
+                  }
+                  setFormData(prev => ({ ...prev, phoneNumber: value }));
+                }}
                 className="bg-gray-800/50 border-gray-700"
               />
             </div>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="john@example.com"
-              value={formData.email}
-              onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-              className="bg-gray-800/50 border-gray-700"
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="phoneNumber">Phone Number</Label>
-            <Input
-              id="phoneNumber"
-              type="tel"
-              placeholder="+27 12 345 6789"
-              value={formData.phoneNumber}
-              onChange={(e) => {
-                let value = e.target.value;
-                // Ensure the value always starts with +27
-                if (!value.startsWith('+27')) {
-                  value = '+27' + value.replace(/^\+27/, '');
-                }
-                setFormData(prev => ({ ...prev, phoneNumber: value }));
-              }}
-              className="bg-gray-800/50 border-gray-700"
-            />
-          </div>
-          <Button 
-            type="submit" 
-            className="w-full rounded-full bg-[#1DB954] text-black hover:bg-[#1ed760] font-semibold"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Joining...' : 'Submit'}
-          </Button>
-        </form>
+            <Button 
+              type="submit" 
+              className="w-full rounded-full bg-[#1DB954] text-black hover:bg-[#1ed760] font-semibold"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Joining...' : 'Submit'}
+            </Button>
+          </form>
+        )}
       </DialogContent>
     </Dialog>
   );
