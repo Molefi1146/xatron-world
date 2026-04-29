@@ -455,18 +455,20 @@ const Index = () => {
         className="container mx-auto px-4 py-24"
       >
         <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <video
-                ref={mobileVideoRef}
-                src={mobileVideo}
-                muted
-                playsInline
-                preload="metadata"
-                className="h-auto w-full object-cover"
-              />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div className="order-1">
+              <div className="relative w-full rounded-2xl overflow-hidden bg-black/40">
+                <video
+                  ref={mobileVideoRef}
+                  src={mobileVideo}
+                  muted
+                  playsInline
+                  preload="metadata"
+                  className="w-full h-auto object-cover aspect-video"
+                />
+              </div>
             </div>
-            <div className="space-y-6">
+            <div className="space-y-4 md:space-y-6 order-2">
               <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-balance break-words">
                 <AnimatedText
                   as="span"
@@ -489,13 +491,13 @@ const Index = () => {
                   {endToEndPhrases[endToEndIndex]}.
                 </motion.span>
               </h2>
-              <p className="text-lg text-white/70 leading-relaxed">
+              <p className="text-base sm:text-lg text-white/70 leading-relaxed">
                 Travelers discover trips and tours, compare options, and save favorites.
               </p>
-              <p className="text-lg text-white/70 leading-relaxed">
+              <p className="text-base sm:text-lg text-white/70 leading-relaxed">
                 Book directly from the listing and track payment status and confirmations in one place.
               </p>
-              <p className="text-lg text-white/70 leading-relaxed">
+              <p className="text-base sm:text-lg text-white/70 leading-relaxed">
                 Messaging and updates reduce manual coordination, improve trust, and cut support load.
               </p>
             </div>
@@ -512,37 +514,37 @@ const Index = () => {
         className="container mx-auto px-4 py-24"
       >
         <div className="max-w-5xl mx-auto">
-          <div className="grid gap-12 items-center md:grid-cols-[1fr_1.2fr]">
-            <div className="space-y-6">
+          <div className="grid gap-8 md:gap-12 items-center grid-cols-1 md:grid-cols-[1fr_1.2fr]">
+            <div className="space-y-4 md:space-y-6 order-2 md:order-1">
               <AnimatedText
                 as="h2"
                 splitBy="chars"
-                className="text-4xl font-semibold tracking-tight"
+                className="text-3xl sm:text-4xl font-semibold tracking-tight text-balance break-words"
                 text="Built for creators: list, optimize, and grow."
                 delay={0.02}
                 duration={0.8}
                 stagger={0.012}
                 once
               />
-              <p className="text-lg text-white/70 leading-relaxed">
+              <p className="text-base sm:text-lg text-white/70 leading-relaxed">
                 Create listings fast, manage availability, and control your inventory without spreadsheets.
               </p>
-              <p className="text-lg text-white/70 leading-relaxed">
+              <p className="text-base sm:text-lg text-white/70 leading-relaxed">
                 Use promo codes and performance insights to increase conversion and fill off-peak dates.
               </p>
-              <p className="text-lg text-white/70 leading-relaxed">
+              <p className="text-base sm:text-lg text-white/70 leading-relaxed">
                 Track the funnel from views to bookings to payments and double down on what works.
               </p>
             </div>
-            <div>
-              <div className="aspect-video w-full min-h-[320px] md:min-h-[420px] overflow-hidden">
+            <div className="order-1 md:order-2">
+              <div className="relative w-full rounded-2xl overflow-hidden bg-black/40">
                 <video
                   ref={videoRef}
                   src={creatorVideo}
                   muted
                   playsInline
-                  preload="none"
-                  className="h-full w-full object-cover"
+                  preload="metadata"
+                  className="w-full h-auto object-cover aspect-video"
                 />
               </div>
             </div>
