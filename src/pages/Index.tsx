@@ -5,6 +5,8 @@ import { FeatureCard } from "@/components/features/FeatureCard";
 import { Button } from "@/components/ui/button";
 import Lottie from "lottie-react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import mapAnimation from "@/components/Animation/map animation.json";
 import statsAnimation from "@/components/Animation/stats.json";
 import listingsAnimation from "@/components/Animation/listings.json";
@@ -19,6 +21,8 @@ const Index = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
   const mobileSectionRef = useRef<HTMLElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+  const turnRef = useRef<HTMLSpanElement>(null);
   const shouldReduceMotion = useReducedMotion();
   const [heroTaglineIndex, setHeroTaglineIndex] = useState(0);
 
@@ -41,6 +45,40 @@ const Index = () => {
 
     return () => window.clearInterval(id);
   }, [heroTaglines.length, shouldReduceMotion]);
+
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const hero = heroRef.current;
+    const turn = turnRef.current;
+    if (!hero || !turn) return;
+
+    const ctx = gsap.context(() => {
+      gsap.set(turn, { transformOrigin: "50% 50%" });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: hero,
+          start: "top 70%",
+          once: true,
+        },
+      });
+
+      tl.to(turn, {
+        rotateZ: 180,
+        duration: 0.55,
+        ease: "back.in(1.6)",
+      }).to(turn, {
+        rotateZ: 0,
+        duration: 0.75,
+        ease: "back.out(1.9)",
+      });
+    }, hero);
+
+    return () => ctx.revert();
+  }, [shouldReduceMotion]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -245,6 +283,7 @@ const Index = () => {
 
       {/* Hero Section */}
       <motion.section 
+        ref={heroRef}
         initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.8, ease: [0.21, 0.45, 0.18, 0.96] }}
@@ -275,16 +314,19 @@ const Index = () => {
               </motion.div>
             </div>
 
-            <AnimatedText
-              as="h1"
-              splitBy="chars"
-              className="mt-8 text-5xl font-semibold leading-[1.1] tracking-tight md:text-6xl lg:text-7xl"
-              text="Turn Your Tours into a Digital Business."
-              delay={0.05}
-              duration={0.95}
-              stagger={0.014}
-              once
-            />
+            <h1 className="mt-8 text-5xl font-semibold leading-[1.1] tracking-tight md:text-6xl lg:text-7xl">
+              <span ref={turnRef} className="inline-block text-[#1DB954]">Turn</span>{" "}
+              <AnimatedText
+                as="span"
+                splitBy="chars"
+                className=""
+                text="Your Tours into a Digital Business."
+                delay={0.08}
+                duration={0.95}
+                stagger={0.014}
+                once
+              />
+            </h1>
             <motion.p
               initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
