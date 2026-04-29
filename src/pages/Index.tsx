@@ -46,6 +46,27 @@ const Index = () => {
     return () => window.clearInterval(id);
   }, [heroTaglines.length, shouldReduceMotion]);
 
+  const endToEndPhrases = useMemo(
+    () => [
+      "end to end",
+      "start to finish",
+      "A to Z",
+      "first to last",
+    ],
+    []
+  );
+  const [endToEndIndex, setEndToEndIndex] = useState(0);
+
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+
+    const id = window.setInterval(() => {
+      setEndToEndIndex((prev) => (prev + 1) % endToEndPhrases.length);
+    }, 1800);
+
+    return () => window.clearInterval(id);
+  }, [endToEndPhrases.length, shouldReduceMotion]);
+
   useEffect(() => {
     if (shouldReduceMotion) return;
 
@@ -446,16 +467,28 @@ const Index = () => {
               />
             </div>
             <div className="space-y-6">
-              <AnimatedText
-                as="h2"
-                splitBy="chars"
-                className="text-4xl font-semibold tracking-tight"
-                text="From discovery to paid booking—end to end."
-                delay={0.02}
-                duration={0.8}
-                stagger={0.012}
-                once
-              />
+              <h2 className="text-4xl font-semibold tracking-tight">
+                <AnimatedText
+                  as="span"
+                  splitBy="chars"
+                  className=""
+                  text="From discovery to paid booking—"
+                  delay={0.02}
+                  duration={0.8}
+                  stagger={0.012}
+                  once
+                />
+                <motion.span
+                  key={endToEndPhrases[endToEndIndex]}
+                  initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={shouldReduceMotion ? undefined : { opacity: 0, y: -10 }}
+                  transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.45, ease: [0.21, 0.45, 0.18, 0.96] }}
+                  className="inline-block text-[#1DB954]"
+                >
+                  {endToEndPhrases[endToEndIndex]}.
+                </motion.span>
+              </h2>
               <p className="text-lg text-white/70 leading-relaxed">
                 Travelers discover trips and tours, compare options, and save favorites.
               </p>
