@@ -11,10 +11,13 @@ import listingsAnimation from "@/components/Animation/listings.json";
 import bookingsAnimation from "@/components/Animation/Untitled file (1).json";
 import communityAnimation from "@/components/Animation/community.json";
 import creatorVideo from "@/components/Animation/project-97371f16-02f4-487c-9df1-d62159016262.webm";
+import mobileVideo from "@/components/Animation/mobile.webm";
 
 const Index = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const mobileVideoRef = useRef<HTMLVideoElement>(null);
+  const mobileSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -48,6 +51,39 @@ const Index = () => {
     return () => {
       observer.disconnect();
       video.removeEventListener('timeupdate', handleTimeUpdate);
+    };
+  }, []);
+
+  useEffect(() => {
+    const video = mobileVideoRef.current;
+    const section = mobileSectionRef.current;
+    if (!video || !section) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.currentTime = 0;
+            video.play().catch((err) => console.log('Video play error:', err));
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(section);
+
+    const handleEnded = () => {
+      video.pause();
+    };
+
+    video.addEventListener('ended', handleEnded);
+
+    return () => {
+      observer.disconnect();
+      video.removeEventListener('ended', handleEnded);
     };
   }, []);
 
@@ -296,6 +332,7 @@ const Index = () => {
       <div id="about" />
 
       <motion.section 
+        ref={mobileSectionRef}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -304,10 +341,13 @@ const Index = () => {
         <div className="max-w-5xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <img
-                src="https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1400&q=80"
-                alt="How Xatron works"
-                className="rounded-2xl shadow-2xl"
+              <video
+                ref={mobileVideoRef}
+                src={mobileVideo}
+                muted
+                playsInline
+                preload="metadata"
+                className="h-auto w-full object-cover"
               />
             </div>
             <div className="space-y-6">
@@ -352,7 +392,7 @@ const Index = () => {
               </p>
             </div>
             <div>
-              <div className="aspect-video w-full min-h-[320px] md:min-h-[420px] overflow-hidden rounded-2xl shadow-2xl bg-black/40">
+              <div className="aspect-video w-full min-h-[320px] md:min-h-[420px] overflow-hidden">
                 <video
                   ref={videoRef}
                   src={creatorVideo}
@@ -411,14 +451,14 @@ const Index = () => {
                 <motion.div
                   whileHover={{ y: -6, boxShadow: "0 20px 40px -10px rgba(29, 185, 84, 0.15)" }}
                   transition={{ duration: 0.18 }}
-                  className="bg-gradient-to-br from-black/40 to-black/20 p-8 rounded-2xl backdrop-blur shadow-lg"
+                  className="p-0"
                 >
                   {feature.useLottie ? (
-                    <div className="aspect-video bg-black/40 rounded-2xl flex items-center justify-center overflow-hidden">
+                    <div className="aspect-video flex items-center justify-center overflow-hidden">
                       <Lottie animationData={feature.lottieAnimation} className="w-full h-full" />
                     </div>
                   ) : (
-                    <div className="aspect-video bg-black/40 rounded-2xl flex items-center justify-center overflow-hidden">
+                    <div className="aspect-video flex items-center justify-center overflow-hidden">
                       <feature.icon className="w-16 h-16 text-[#1DB954] opacity-40" />
                     </div>
                   )}
