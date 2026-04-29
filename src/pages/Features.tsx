@@ -120,7 +120,7 @@ const Features = () => {
           transition={{ duration: 0.8 }}
           className="text-center max-w-3xl mx-auto"
         >
-          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-6 text-balance break-words">
             Features that power a real travel marketplace
           </h1>
           <p className="text-lg md:text-xl text-white/70">
@@ -143,7 +143,7 @@ const Features = () => {
               <div className="flex-1 space-y-6">
                 <div className="flex items-center gap-4">
                   <feature.icon className="w-10 h-10 text-[#1DB954]" />
-                  <h2 className="text-3xl font-semibold tracking-tight">{feature.title}</h2>
+                  <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-balance break-words">{feature.title}</h2>
                 </div>
                 <p className="text-lg text-white/70 leading-relaxed">{feature.description}</p>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -185,7 +185,7 @@ const Features = () => {
         className="container mx-auto px-4 py-24 text-center"
       >
         <div className="max-w-2xl mx-auto space-y-8">
-          <h2 className="text-4xl font-semibold tracking-tight">Get early access</h2>
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-balance break-words">Get early access</h2>
           <p className="text-lg text-white/70 leading-relaxed">
             Join the beta and be first in line when Xatron opens to travelers and creators.
           </p>

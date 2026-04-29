@@ -335,7 +335,7 @@ const Index = () => {
               </motion.div>
             </div>
 
-            <h1 className="mt-8 text-5xl font-semibold leading-[1.1] tracking-tight md:text-6xl lg:text-7xl">
+            <h1 className="mt-8 text-4xl sm:text-5xl font-semibold leading-[1.15] tracking-tight md:text-6xl lg:text-7xl text-balance break-words">
               <span ref={turnRef} className="inline-block text-[#1DB954]">Turn</span>{" "}
               <AnimatedText
                 as="span"
@@ -467,7 +467,7 @@ const Index = () => {
               />
             </div>
             <div className="space-y-6">
-              <h2 className="text-4xl font-semibold tracking-tight">
+              <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-balance break-words">
                 <AnimatedText
                   as="span"
                   splitBy="chars"
@@ -563,7 +563,7 @@ const Index = () => {
           <AnimatedText
             as="h2"
             splitBy="chars"
-            className="text-4xl md:text-5xl font-semibold tracking-tight mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-6 text-balance break-words"
             text="Features that power a real travel marketplace"
             delay={0.02}
             duration={0.85}

@@ -26,7 +26,7 @@ export const FeatureCard = ({ icon: Icon, title, description, index }: FeatureCa
       <div className="mb-4 flex h-12 w-12 items-center justify-center">
         <Icon className="h-6 w-6 text-[#1DB954]" />
       </div>
-      <h3 className="mb-2 text-lg font-semibold tracking-tight text-white">
+      <h3 className="mb-2 text-lg font-semibold tracking-tight text-white text-balance break-words">
         {title}
       </h3>
       <p className="text-sm leading-relaxed text-white/70">{description}</p>
