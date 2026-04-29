@@ -79,8 +79,10 @@ export const WaitlistDialog = () => {
         phoneNumber: "+27",
       });
       setIsSuccess(true);
-    } catch (error: any) {
-      if (error.code === '23505') {
+    } catch (error: unknown) {
+      const errorWithCode = error as { code?: string };
+
+      if (errorWithCode.code === '23505') {
         toast({
           title: "Already registered",
           description: "This email is already on our waitlist.",

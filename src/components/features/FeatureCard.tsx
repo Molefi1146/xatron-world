@@ -1,6 +1,7 @@
 
 import { motion } from "framer-motion";
 import { LucideIcon } from "lucide-react";
+import { useReducedMotion } from "framer-motion";
 
 interface FeatureCardProps {
   icon: LucideIcon;
@@ -10,11 +11,14 @@ interface FeatureCardProps {
 }
 
 export const FeatureCard = ({ icon: Icon, title, description, index }: FeatureCardProps) => {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.1, duration: 0.8 }}
+      initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.35, margin: "0px 0px -80px 0px" }}
+      transition={shouldReduceMotion ? { duration: 0 } : { delay: index * 0.08, duration: 0.7, ease: [0.21, 0.45, 0.18, 0.96] }}
       whileHover={{ y: -6, boxShadow: "0 20px 40px -10px rgba(29, 185, 84, 0.15)" }}
       whileTap={{ scale: 0.98 }}
       className="p-0 transition-all duration-300"

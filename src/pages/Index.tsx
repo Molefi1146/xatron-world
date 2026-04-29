@@ -1,10 +1,10 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Users, Plane, CreditCard, Heart, MapPin, Wallet, Plus, List } from "lucide-react";
 import { WaitlistDialog } from "@/components/waitlist/WaitlistDialog";
 import { FeatureCard } from "@/components/features/FeatureCard";
 import { Button } from "@/components/ui/button";
 import Lottie from "lottie-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import mapAnimation from "@/components/Animation/map animation.json";
 import statsAnimation from "@/components/Animation/stats.json";
 import listingsAnimation from "@/components/Animation/listings.json";
@@ -12,12 +12,35 @@ import bookingsAnimation from "@/components/Animation/Untitled file (1).json";
 import communityAnimation from "@/components/Animation/community.json";
 import creatorVideo from "@/components/Animation/project-97371f16-02f4-487c-9df1-d62159016262.webm";
 import mobileVideo from "@/components/Animation/mobile.webm";
+import AnimatedText from "@/components/Animation/AnimatedText";
 
 const Index = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const mobileVideoRef = useRef<HTMLVideoElement>(null);
   const mobileSectionRef = useRef<HTMLElement>(null);
+  const shouldReduceMotion = useReducedMotion();
+  const [heroTaglineIndex, setHeroTaglineIndex] = useState(0);
+
+  const heroTaglines = useMemo(
+    () => [
+      "List tours in minutes",
+      "Turn views into paid bookings",
+      "Manage capacity without spreadsheets",
+      "Build trust with travelers",
+    ],
+    []
+  );
+
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+
+    const id = window.setInterval(() => {
+      setHeroTaglineIndex((prev) => (prev + 1) % heroTaglines.length);
+    }, 2400);
+
+    return () => window.clearInterval(id);
+  }, [heroTaglines.length, shouldReduceMotion]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -193,6 +216,12 @@ const Index = () => {
           animate={{ opacity: [0.6, 0.95, 0.65], scale: [1, 1.02, 1] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
+        <motion.div
+          aria-hidden="true"
+          className="absolute left-1/2 top-1/3 h-[520px] w-[520px] -translate-x-1/2 rounded-full bg-[conic-gradient(from_90deg,rgba(29,185,84,0.18),rgba(16,185,129,0.08),rgba(29,185,84,0.18))] blur-3xl"
+          animate={shouldReduceMotion ? undefined : { rotate: [0, 180, 360], opacity: [0.35, 0.55, 0.35] }}
+          transition={shouldReduceMotion ? undefined : { duration: 18, repeat: Infinity, ease: "linear" }}
+        />
       </div>
 
       <header className="container mx-auto px-4 pt-6">
@@ -216,44 +245,59 @@ const Index = () => {
 
       {/* Hero Section */}
       <motion.section 
-        initial={{ opacity: 0, y: 20 }}
+        initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.8, ease: [0.21, 0.45, 0.18, 0.96] }}
         className="container mx-auto px-4 pt-16 pb-20"
       >
         <div className="grid items-center gap-12 lg:gap-16 md:grid-cols-2">
           <div className="text-left">
             <motion.span
-              initial={{ opacity: 0, y: 10 }}
+              initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05, duration: 0.6 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.05, duration: 0.6, ease: [0.21, 0.45, 0.18, 0.96] }}
               className="inline-flex items-center gap-2 rounded-full bg-black/30 px-4 py-1.5 text-xs font-medium text-white/70"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-[#1DB954]" />
               BETA · 2026
             </motion.span>
-            <motion.h1
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.12, duration: 0.8 }}
+
+            <div className="mt-4 h-6 overflow-hidden">
+              <motion.div
+                key={heroTaglines[heroTaglineIndex]}
+                initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={shouldReduceMotion ? undefined : { opacity: 0, y: -12 }}
+                transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.55, ease: [0.21, 0.45, 0.18, 0.96] }}
+                className="text-xs font-medium tracking-wide text-white/60"
+              >
+                {heroTaglines[heroTaglineIndex]}
+              </motion.div>
+            </div>
+
+            <AnimatedText
+              as="h1"
+              splitBy="chars"
               className="mt-8 text-5xl font-semibold leading-[1.1] tracking-tight md:text-6xl lg:text-7xl"
-            >
-              Turn Your Tours into a
-              <span className="text-[#1DB954]"> Digital Business</span>.
-            </motion.h1>
+              text="Turn Your Tours into a Digital Business."
+              delay={0.05}
+              duration={0.95}
+              stagger={0.014}
+              once
+            />
             <motion.p
-              initial={{ opacity: 0, y: 14 }}
+              initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.18, duration: 0.8 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.18, duration: 0.8, ease: [0.21, 0.45, 0.18, 0.96] }}
               className="mt-6 max-w-xl text-lg leading-relaxed text-white/70 md:text-xl"
             >
               The marketplace built for South African tour creators. List in minutes, manage bookings, and get paid—while travelers discover and book experiences with confidence.
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
+              transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.2, duration: 0.8, ease: [0.21, 0.45, 0.18, 0.96] }}
               className="mt-10 flex flex-wrap items-center gap-4"
             >
               <WaitlistDialog />
@@ -279,9 +323,17 @@ const Index = () => {
           <div className="relative">
             <div className="absolute -inset-8 rounded-[32px] bg-[radial-gradient(circle_at_30%_20%,rgba(29,185,84,0.25),rgba(0,0,0,0)_60%)] blur-2xl" />
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: [0, -8, 0] }}
-              transition={{ opacity: { duration: 0.8 }, y: { duration: 8, repeat: Infinity, ease: "easeInOut" } }}
+              initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
+              animate={
+                shouldReduceMotion
+                  ? { opacity: 1, y: 0 }
+                  : { opacity: 1, y: [0, -8, 0] }
+              }
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { opacity: { duration: 0.8 }, y: { duration: 8, repeat: Infinity, ease: "easeInOut" } }
+              }
               className="relative overflow-hidden rounded-[28px] bg-black/40 p-5 backdrop-blur shadow-2xl"
             >
               <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl bg-gradient-to-b from-white/10 to-black/60">
@@ -333,9 +385,10 @@ const Index = () => {
 
       <motion.section 
         ref={mobileSectionRef}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.35, margin: "0px 0px -120px 0px" }}
+        transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.8, ease: [0.21, 0.45, 0.18, 0.96] }}
         className="container mx-auto px-4 py-24"
       >
         <div className="max-w-5xl mx-auto">
@@ -351,9 +404,16 @@ const Index = () => {
               />
             </div>
             <div className="space-y-6">
-              <h2 className="text-4xl font-semibold tracking-tight">
-                From discovery to paid booking—end to end.
-              </h2>
+              <AnimatedText
+                as="h2"
+                splitBy="chars"
+                className="text-4xl font-semibold tracking-tight"
+                text="From discovery to paid booking—end to end."
+                delay={0.02}
+                duration={0.8}
+                stagger={0.012}
+                once
+              />
               <p className="text-lg text-white/70 leading-relaxed">
                 Travelers discover trips and tours, compare options, and save favorites.
               </p>
@@ -370,17 +430,25 @@ const Index = () => {
 
       <motion.section
         ref={sectionRef}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+        initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.35, margin: "0px 0px -120px 0px" }}
+        transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.8, ease: [0.21, 0.45, 0.18, 0.96] }}
         className="container mx-auto px-4 py-24"
       >
         <div className="max-w-5xl mx-auto">
           <div className="grid gap-12 items-center md:grid-cols-[1fr_1.2fr]">
             <div className="space-y-6">
-              <h2 className="text-4xl font-semibold tracking-tight">
-                Built for creators: list, optimize, and grow.
-              </h2>
+              <AnimatedText
+                as="h2"
+                splitBy="chars"
+                className="text-4xl font-semibold tracking-tight"
+                text="Built for creators: list, optimize, and grow."
+                delay={0.02}
+                duration={0.8}
+                stagger={0.012}
+                once
+              />
               <p className="text-lg text-white/70 leading-relaxed">
                 Create listings fast, manage availability, and control your inventory without spreadsheets.
               </p>
@@ -411,14 +479,22 @@ const Index = () => {
       <div id="features" />
       <section className="container mx-auto px-4 py-20">
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
+          whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.35, margin: "0px 0px -120px 0px" }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.8, ease: [0.21, 0.45, 0.18, 0.96] }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-semibold tracking-tight mb-6">
-            Features that power a real travel marketplace
-          </h2>
+          <AnimatedText
+            as="h2"
+            splitBy="chars"
+            className="text-4xl md:text-5xl font-semibold tracking-tight mb-6"
+            text="Features that power a real travel marketplace"
+            delay={0.02}
+            duration={0.85}
+            stagger={0.012}
+            once
+          />
           <p className="text-lg md:text-xl text-white/70">
             Built for travelers to book with confidence and for creators to run operations, inventory, and payments in one place.
           </p>
@@ -427,9 +503,14 @@ const Index = () => {
           {detailedFeatures.map((feature, index) => (
             <motion.div
               key={feature.title}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.2 }}
+              initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.35, margin: "0px 0px -120px 0px" }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { delay: index * 0.08, duration: 0.8, ease: [0.21, 0.45, 0.18, 0.96] }
+              }
               className="flex flex-col md:flex-row gap-12 items-center"
             >
               <div className="flex-1 space-y-6">
@@ -471,9 +552,10 @@ const Index = () => {
 
       {/* Call to Action */}
       <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6 }}
+        initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.35, margin: "0px 0px -120px 0px" }}
+        transition={shouldReduceMotion ? { duration: 0 } : { delay: 0.1, duration: 0.8, ease: [0.21, 0.45, 0.18, 0.96] }}
         className="container mx-auto px-4 py-24 text-center"
       >
         <div className="max-w-2xl mx-auto space-y-8">
