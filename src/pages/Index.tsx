@@ -457,16 +457,14 @@ const Index = () => {
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
             <div className="order-1">
-              <div className="relative w-full rounded-2xl overflow-hidden bg-black/40">
-                <video
-                  ref={mobileVideoRef}
-                  src={mobileVideo}
-                  muted
-                  playsInline
-                  preload="metadata"
-                  className="w-full h-auto object-cover aspect-video"
-                />
-              </div>
+              <video
+                ref={mobileVideoRef}
+                src={mobileVideo}
+                muted
+                playsInline
+                preload="metadata"
+                className="w-full h-auto"
+              />
             </div>
             <div className="space-y-4 md:space-y-6 order-2">
               <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-balance break-words">
@@ -537,16 +535,14 @@ const Index = () => {
               </p>
             </div>
             <div className="order-1 md:order-2">
-              <div className="relative w-full rounded-2xl overflow-hidden bg-black/40">
-                <video
-                  ref={videoRef}
-                  src={creatorVideo}
-                  muted
-                  playsInline
-                  preload="metadata"
-                  className="w-full h-auto object-cover aspect-video"
-                />
-              </div>
+              <video
+                ref={videoRef}
+                src={creatorVideo}
+                muted
+                playsInline
+                preload="metadata"
+                className="w-full h-auto"
+              />
             </div>
           </div>
         </div>
