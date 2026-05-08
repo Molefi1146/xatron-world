@@ -339,12 +339,12 @@ const Index = () => {
               <span ref={turnRef} className="inline-block text-[#1DB954]">Turn</span>{" "}
               <AnimatedText
                 as="span"
-                splitBy="chars"
+                splitBy="words"
                 className=""
                 text="Your Tours into a Digital Business."
                 delay={0.08}
                 duration={0.95}
-                stagger={0.014}
+                stagger={0.06}
                 once
               />
             </h1>
@@ -470,7 +470,7 @@ const Index = () => {
               <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-balance break-words">
                 <AnimatedText
                   as="span"
-                  splitBy="chars"
+                  splitBy="words"
                   className=""
                   text="From discovery to paid booking—"
                   delay={0.02}
@@ -516,7 +516,7 @@ const Index = () => {
             <div className="space-y-4 md:space-y-6 order-2 md:order-1">
               <AnimatedText
                 as="h2"
-                splitBy="chars"
+                splitBy="words"
                 className="text-3xl sm:text-4xl font-semibold tracking-tight text-balance break-words"
                 text="Built for creators: list, optimize, and grow."
                 delay={0.02}
@@ -560,7 +560,7 @@ const Index = () => {
         >
           <AnimatedText
             as="h2"
-            splitBy="chars"
+            splitBy="words"
             className="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight mb-6 text-balance break-words"
             text="Features that power a real travel marketplace"
             delay={0.02}
