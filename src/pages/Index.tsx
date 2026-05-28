@@ -287,9 +287,9 @@ const Index = () => {
         <nav className="sticky top-4 z-50 flex items-center justify-between rounded-2xl bg-gradient-to-r from-black/40 to-black/20 px-6 py-4 backdrop-blur-md shadow-lg">
           <div className="flex items-center gap-4">
             <img
-              src="/Frame%201by1.svg"
+              src="/Frame%2047.svg"
               alt="Xatron"
-              className="h-28 w-28 rounded-3xl"
+              className="h-16 w-16"
             />
           </div>
           <div className="hidden items-center gap-10 text-sm font-medium text-white/60 md:flex">
@@ -644,9 +644,9 @@ const Index = () => {
       <footer className="container mx-auto px-4 py-16">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <img
-            src="/Frame%20222footer.svg"
+            src="/Frame%2047.svg"
             alt="Xatron"
-            className="w-full max-w-sm md:max-w-md lg:max-w-lg h-auto"
+            className="w-16 h-16 object-contain"
           />
           <div className="text-sm font-medium text-white/50">
             Since 2025
