@@ -13,7 +13,7 @@ import listingsAnimation from "@/components/Animation/listings.json";
 import bookingsAnimation from "@/components/Animation/Untitled file (1).json";
 import communityAnimation from "@/components/Animation/community.json";
 import rectangleMockup from "@/components/Animation/Rectangle22.svg";
-import phoneMockup from "@/components/Animation/phone mockup.svg";
+import frameMockup from "@/components/Animation/Frame 10101.svg";
 import AnimatedText from "@/components/Animation/AnimatedText";
 
 const Index = () => {
@@ -385,9 +385,9 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-[1.5fr_0.5fr] gap-10 md:gap-14 items-center">
             <div className="order-1 flex justify-center md:justify-start">
               <img
-                src={phoneMockup}
+                src={frameMockup}
                 alt="Phone mockup showing app interface"
-                className="w-full max-w-[980px] h-auto rounded-[32px]"
+                className="w-full max-w-[980px] h-auto"
               />
             </div>
             <div className="space-y-4 md:space-y-6 order-2">
