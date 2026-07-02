@@ -12,15 +12,11 @@ import statsAnimation from "@/components/Animation/stats.json";
 import listingsAnimation from "@/components/Animation/listings.json";
 import bookingsAnimation from "@/components/Animation/Untitled file (1).json";
 import communityAnimation from "@/components/Animation/community.json";
-import creatorVideo from "@/components/Animation/project-97371f16-02f4-487c-9df1-d62159016262.webm";
-import mobileVideo from "@/components/Animation/mobile.webm";
+import rectangleMockup from "@/components/Animation/Rectangle22.svg";
+import phoneMockup from "@/components/Animation/phone mockup.svg";
 import AnimatedText from "@/components/Animation/AnimatedText";
 
 const Index = () => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const mobileVideoRef = useRef<HTMLVideoElement>(null);
-  const mobileSectionRef = useRef<HTMLElement>(null);
   const heroRef = useRef<HTMLElement>(null);
   const turnRef = useRef<HTMLSpanElement>(null);
   const shouldReduceMotion = useReducedMotion();
@@ -100,74 +96,6 @@ const Index = () => {
 
     return () => ctx.revert();
   }, [shouldReduceMotion]);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    const section = sectionRef.current;
-    if (!video || !section) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            video.currentTime = 0;
-            video.play().catch((err) => console.log('Video play error:', err));
-          } else {
-            video.pause();
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    observer.observe(section);
-
-    const handleTimeUpdate = () => {
-      if (video.currentTime >= 4) {
-        video.pause();
-      }
-    };
-
-    video.addEventListener('timeupdate', handleTimeUpdate);
-
-    return () => {
-      observer.disconnect();
-      video.removeEventListener('timeupdate', handleTimeUpdate);
-    };
-  }, []);
-
-  useEffect(() => {
-    const video = mobileVideoRef.current;
-    const section = mobileSectionRef.current;
-    if (!video || !section) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            video.currentTime = 0;
-            video.play().catch((err) => console.log('Video play error:', err));
-          } else {
-            video.pause();
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    observer.observe(section);
-
-    const handleEnded = () => {
-      video.pause();
-    };
-
-    video.addEventListener('ended', handleEnded);
-
-    return () => {
-      observer.disconnect();
-      video.removeEventListener('ended', handleEnded);
-    };
-  }, []);
 
   const quickFeatures = [
     {
@@ -447,7 +375,6 @@ const Index = () => {
       <div id="about" />
 
       <motion.section 
-        ref={mobileSectionRef}
         initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.35, margin: "0px 0px -120px 0px" }}
@@ -455,15 +382,12 @@ const Index = () => {
         className="container mx-auto px-4 py-24"
       >
         <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-            <div className="order-1">
-              <video
-                ref={mobileVideoRef}
-                src={mobileVideo}
-                muted
-                playsInline
-                preload="metadata"
-                className="w-full h-auto"
+          <div className="grid grid-cols-1 md:grid-cols-[1.5fr_0.5fr] gap-10 md:gap-14 items-center">
+            <div className="order-1 flex justify-center md:justify-start">
+              <img
+                src={phoneMockup}
+                alt="Phone mockup showing app interface"
+                className="w-full max-w-[980px] h-auto rounded-[32px]"
               />
             </div>
             <div className="space-y-4 md:space-y-6 order-2">
@@ -504,15 +428,14 @@ const Index = () => {
       </motion.section>
 
       <motion.section
-        ref={sectionRef}
         initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
         whileInView={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.35, margin: "0px 0px -120px 0px" }}
         transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.8, ease: [0.21, 0.45, 0.18, 0.96] }}
         className="container mx-auto px-4 py-24"
       >
-        <div className="max-w-5xl mx-auto">
-          <div className="grid gap-8 md:gap-12 items-center grid-cols-1 md:grid-cols-[1fr_1.2fr]">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid gap-8 md:gap-12 items-center grid-cols-1 md:grid-cols-[0.65fr_1.35fr]">
             <div className="space-y-4 md:space-y-6 order-2 md:order-1">
               <AnimatedText
                 as="h2"
@@ -534,14 +457,11 @@ const Index = () => {
                 Track the funnel from views to bookings to payments and double down on what works.
               </p>
             </div>
-            <div className="order-1 md:order-2">
-              <video
-                ref={videoRef}
-                src={creatorVideo}
-                muted
-                playsInline
-                preload="metadata"
-                className="w-full h-auto"
+            <div className="order-1 md:order-2 flex justify-center md:justify-end">
+              <img
+                src={rectangleMockup}
+                alt="Creator marketplace app mockup"
+                className="w-full max-w-[1000px] h-auto"
               />
             </div>
           </div>
